@@ -21,7 +21,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="sticky top-0 z-50 bg-[#D9D9D9] px-4 py-2">
+    <div className="sticky top-0 z-50 bg-[#D9D9D9] px-4 pt-6">
       <div className="flex items-center gap-4 text-[10px] tracking-wide text-[#555] h-5">
         <button onClick={() => setOpen(!open)}>
           <div className="relative w-4 h-4 flex items-center justify-center">
