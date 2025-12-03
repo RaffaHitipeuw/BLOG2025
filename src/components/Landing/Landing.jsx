@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "../Footer/Footer";
+import Link from "next/link";
 
 export default function LandingPage() {
   const [data, setData] = useState(null);
@@ -40,90 +41,95 @@ export default function LandingPage() {
 
   if (!data || !media) return null;
 
-    return (
+  return (
     <>
-  <div className="relative min-h-screen w-full bg-[#D9D9D9] dark:bg-[#111] text-black dark:text-[#eee] px-6 py-4">
+      <div className="relative min-h-screen w-full bg-[#D9D9D9] dark:bg-[#111] text-black dark:text-[#eee] px-6 py-4">
+        <Navbar />
 
-  <Navbar />
-
-  <div className="w-full max-w-[1200px] mx-auto">
-
-    <div className="flex md:hidden justify-between w-full">
-      <h1 className="font-helvetica font-bold leading-none text-[clamp(34px,12vw,80px)]">
-        {data.heading.left}
-      </h1>
-      <div className="flex flex-col leading-none text-right">
-        {data.heading.right.map((txt, i) => (
-          <h1
-            key={i}
-            className={`font-helvetica font-bold text-[clamp(34px,12vw,80px)] ${i === 1 ? "mt-2" : ""}`}
-          >
-            {txt}
-          </h1>
-        ))}
-      </div>
-    </div>
-
-    <div className="hidden md:flex lg:hidden justify-between w-full">
-      <h1 className="font-helvetica font-bold leading-none text-[clamp(60px,10vw,130px)]">
-        {data.heading.left}
-      </h1>
-      <div className="flex flex-col leading-none text-right">
-        {data.heading.right.map((txt, i) => (
-          <h1 key={i} className="font-helvetica font-bold text-[clamp(60px,10vw,130px)]">
-            {txt}
-          </h1>
-        ))}
-      </div>
-    </div>
-
-    <div className="hidden lg:flex justify-between w-full">
-      <h1 className="font-helvetica font-bold leading-none text-[clamp(120px,12vw,260px)]">
-        {data.heading.left}
-      </h1>
-      <div className="flex flex-col leading-none text-right">
-        {data.heading.right.map((txt, i) => (
-          <h1 key={i} className="font-helvetica text-[clamp(120px,12vw,260px)]">
-            {txt}
-          </h1>
-        ))}
-      </div>
-    </div>
-
-  </div>
-
-  <div className="relative w-full max-w-[1200px] mx-auto mt-12 flex">
-    <div className="w-full">
-      <div className="border-t border-[#515151] dark:border-[#444] mb-3 w-full pl-0 md:pl-[1.05ch] lg:pl-[1.14ch]" />
-      <p className="font-helvetica text-sm text-[#383838] dark:text-[#bbb]">Gallery</p>
-    </div>
-  </div>
-
-  <div className="w-full max-w-[1200px] mx-auto mt-8 grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-    {data.gallery.map((item, i) => {
-      const imgSrc = media[item.image];
-
-      return (
-        <div key={i} className="p-6">
-          <div className="relative w-full aspect-4/3 rounded-xl overflow-hidden">
-            <img
-              className="w-full h-full object-cover"
-              src={imgSrc}
-              alt={item.alt}
-            />
+        <div className="w-full max-w-[1200px] mx-auto">
+          {/* Mobile */}
+          <div className="flex md:hidden justify-between w-full">
+            <h1 className="font-helvetica font-bold leading-none text-[clamp(34px,12vw,80px)]">
+              {data.heading.left}
+            </h1>
+            <div className="flex flex-col leading-none text-right">
+              {data.heading.right.map((txt, i) => (
+                <h1
+                  key={i}
+                  className={`font-helvetica font-bold text-[clamp(34px,12vw,80px)] ${i === 1 ? "mt-2" : ""}`}
+                >
+                  {txt}
+                </h1>
+              ))}
+            </div>
           </div>
 
-          <p className="text-[10px] text-[#555] dark:text-[#aaa] mt-3">{item.date}</p>
-          <h2 className="font-helvetica font-bold text-lg dark:text-white mt-1">{item.title}</h2>
-          <p className="text-sm text-[#333] dark:text-[#ccc] mt-1">{item.desc}</p>
+          {/* Tablet */}
+          <div className="hidden md:flex lg:hidden justify-between w-full">
+            <h1 className="font-helvetica font-bold leading-none text-[clamp(60px,10vw,130px)]">
+              {data.heading.left}
+            </h1>
+            <div className="flex flex-col leading-none text-right">
+              {data.heading.right.map((txt, i) => (
+                <h1 key={i} className="font-helvetica font-bold text-[clamp(60px,10vw,130px)]">
+                  {txt}
+                </h1>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop */}
+          <div className="hidden lg:flex justify-between w-full">
+            <h1 className="font-helvetica font-bold leading-none text-[clamp(120px,12vw,260px)]">
+              {data.heading.left}
+            </h1>
+            <div className="flex flex-col leading-none text-right">
+              {data.heading.right.map((txt, i) => (
+                <h1 key={i} className="font-helvetica text-[clamp(120px,12vw,260px)]">
+                  {txt}
+                </h1>
+              ))}
+            </div>
+          </div>
         </div>
-      );
-    })}
-  </div>
-</div>
 
-<Footer />
+        {/* Section Title */}
+        <div className="relative w-full max-w-[1200px] mx-auto mt-12 flex">
+          <div className="w-full">
+            <div className="border-t border-[#515151] dark:border-[#444] mb-3 w-full pl-0 md:pl-[1.05ch] lg:pl-[1.14ch]" />
+            <p className="font-helvetica text-sm text-[#383838] dark:text-[#bbb]">Gallery</p>
+          </div>
+        </div>
 
+        {/* Gallery Grid */}
+        <div className="w-full max-w-[1200px] mx-auto mt-8 grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+          {data.gallery.map((item, i) => {
+            const imgSrc = media[item.image];
+
+            return (
+              <Link
+                href={`/gallery/${item.slug}`}
+                key={i}
+                className="p-6 block hover:opacity-80 transition"
+              >
+                <div className="relative w-full aspect-4/3 rounded-xl overflow-hidden">
+                  <img
+                    className="w-full h-full object-cover"
+                    src={imgSrc}
+                    alt={item.alt}
+                  />
+                </div>
+
+                <p className="text-[10px] text-[#555] dark:text-[#aaa] mt-3">{item.date}</p>
+                <h2 className="font-helvetica font-bold text-lg dark:text-white mt-1">{item.title}</h2>
+                <p className="text-sm text-[#333] dark:text-[#ccc] mt-1">{item.desc}</p>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      <Footer />
     </>
   );
 }
