@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import Lenis from '@studio-freight/lenis'
 import Landing from '@/components/Landing/Landing'
 
