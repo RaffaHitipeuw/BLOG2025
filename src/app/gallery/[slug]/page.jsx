@@ -1,51 +1,82 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import Link from "next/link";
+import { use, useEffect, useState } from "react";
 
-export default function GalleryDetail() {
-  const { slug } = useParams();
+export default function GalleryDetail(props) {
+  const { slug } = use(props.params);
+
   const [data, setData] = useState(null);
   const [media, setMedia] = useState(null);
   const [item, setItem] = useState(null);
 
   useEffect(() => {
     const fetchAll = async () => {
-      const res = await fetch("https://raffahitipeuw.github.io/portasset/datablog/landing/landing.json");
-      const json = await res.json();
+      try {
+        const resLanding = await fetch(
+          "https://raffahitipeuw.github.io/portasset/datablog/landing/landing.json",
+          { cache: "no-store" }
+        );
+        const jsonLanding = await resLanding.json();
 
-      const mediaRes = await fetch("https://raffahitipeuw.github.io/portasset/assets/media/media.json");
-      const mediaJson = await mediaRes.json();
+        const resMedia = await fetch(
+          "https://raffahitipeuw.github.io/portasset/assets/media/media.json",
+          { cache: "no-store" }
+        );
+        const jsonMedia = await resMedia.json();
 
-      setData(json);
-      setMedia(mediaJson);
+        setData(jsonLanding);
+        setMedia(jsonMedia);
 
-      const found = json.gallery.find((x) => x.slug === slug);
-      setItem(found);
+        const found = jsonLanding.gallery.find((g) => g.slug === slug);
+        setItem(found || null);
+      } catch (err) {
+        console.error("Detail page error:", err);
+      }
     };
 
     fetchAll();
   }, [slug]);
 
-  if (!item || !media) return null;
+  if (!data || !media || !item) return null;
 
   const imgSrc = media[item.image];
+  const videoSrc = item.video ? media[item.video] : null;
 
   return (
-    <div className="w-full max-w-[800px] mx-auto px-6 py-20">
-      <Link href="/gallery" className="underline text-sm opacity-70 hover:opacity-100">
-        ← Back to gallery
-      </Link>
+    <div className="min-h-screen w-full bg-[#D9D9D9] dark:bg-[#111] text-black dark:text-white py-20 px-6">
 
-      <h1 className="text-4xl font-bold mt-4">{item.title}</h1>
-      <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">{item.date}</p>
+      <div className="max-w-[900px] mx-auto mb-24 font-helvetica">
+        <h1 className="text-4xl mb-1">
+          {item.title}
+        </h1>
 
-      <p className="mt-5 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-        {item.desc}
-      </p>
+        <p className="text-sm opacity-60 mb-6">
+          {item.date}
+        </p>
 
-      <div className="mt-10 w-full rounded-xl overflow-hidden">
-        <img src={imgSrc} className="w-full object-cover" alt={item.alt} />
+        <p className="opacity-80 text-base max-w-2xl leading-relaxed">
+          {item.desc}
+        </p>
+      </div>
+
+      <div className="max-w-[1300px] mx-auto rounded-2xl p-10 mb-16">
+
+        {videoSrc ? (
+          <video
+            src={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-auto object-contain rounded-xl"
+          />
+        ) : (
+          <img
+            src={imgSrc}
+            alt={item.alt}
+            className="w-full h-80 object-contain rounded-xl"
+          />
+        )}
+
       </div>
     </div>
   );

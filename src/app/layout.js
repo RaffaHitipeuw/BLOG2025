@@ -1,4 +1,5 @@
 import "./globals.css";
+import Navbar from "@/components/Landing/Navbar";
 
 export const metadata = {
   metadataBase: new URL("https://blog-raffahitipeuw.vercel.app/"),
@@ -85,7 +86,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        {children}
+        </body>
     </html>
   );
 }

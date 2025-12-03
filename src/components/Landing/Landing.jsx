@@ -44,8 +44,6 @@ export default function LandingPage() {
   return (
     <>
       <div className="relative min-h-screen w-full bg-[#D9D9D9] dark:bg-[#111] text-black dark:text-[#eee] px-6 py-4">
-        <Navbar />
-
         <div className="w-full max-w-[1200px] mx-auto">
           {/* Mobile */}
           <div className="flex md:hidden justify-between w-full">
